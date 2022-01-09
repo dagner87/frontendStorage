@@ -41,6 +41,7 @@ export class CategoryComponent implements OnInit {
 
   open(content) {
     this.categoriaForm.reset();
+    this.categoriaExiste = false;
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(
@@ -53,7 +54,7 @@ export class CategoryComponent implements OnInit {
       );
   }
   private getDismissReason(reason: any): string {
-    console.log(reason);
+    console.log('Is de reason ', reason);
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -145,8 +146,8 @@ export class CategoryComponent implements OnInit {
         (resp) => {
           if (resp.ok) {
             this.categoriaExiste = false;
-            this.getDismissReason('send ok');
-            this.toastr.success('Categoria', resp.msg);
+            this.toastr.success('', resp.msg);
+            this.modalService.dismissAll('2');
             this.obtenerCategorias();
           }
         },
