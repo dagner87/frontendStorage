@@ -1,0 +1,129 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'navigation'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">Earnings</span>
+                            <h3 class="mb-0">$ <span class="counter" [CountTo]="500" [from]="0"
+                                    [duration]="2">500</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'box'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">Products</span>
+                            <h3 class="mb-0">$ <span class="counter" [CountTo]="9856" [from]="0"
+                                    [duration]="2">9856</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'message-square'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">Messages</span>
+                            <h3 class="mb-0">$ <span class="counter" [CountTo]="893" [from]="0"
+                                    [duration]="2">893</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-danger card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'users'" class="font-danger"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">New Vendors</span>
+                            <h3 class="mb-0">$ <span class="counter" [CountTo]="45631" [from]="0"
+                                    [duration]="2">45631</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Sales Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-6 xl-100">
+                            <div class="order-graph">
+                                <h6>Orders By Location</h6>
+                                <div class="chart-block chart-vertical-center">
+                                    <ngx-charts-pie-chart class="pie-colours-1" [view]="view"
+                                        [scheme]="doughnutChartColorScheme" [results]="pieData" [explodeSlices]="false"
+                                        [labels]="doughnutChartShowLabels" [arcWidth]=0.50 [doughnut]="true"
+                                        [animations]="false" [tooltipDisabled]="doughnutChartTooltip"
+                                        [gradient]="doughnutChartGradient">
+                                    </ngx-charts-pie-chart>
+                                </div>
+                                <div class="order-graph-bottom">
+                                    <div class="media">
+                                        <div class="order-color-primary"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">ALPHA <span class="pull-right">$157</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-color-secondary"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">EZGO <span class="pull-right">$347</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-color-danger"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">TEMPO<span class="pull-right">$468</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-color-warning"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">Club Car Presedent<span class="pull-right">$742</span></h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Container-fluid Ends-->
