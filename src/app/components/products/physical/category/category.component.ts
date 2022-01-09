@@ -158,7 +158,7 @@ export class CategoryComponent implements OnInit {
       );
     } else {
       this.categoriaForm.markAllAsTouched();
-      console.log(this.categoriaForm.errors);
+      //console.log(this.categoriaForm.errors);
     }
   }
 }
