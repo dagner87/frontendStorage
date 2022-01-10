@@ -81,9 +81,9 @@ export class CategoryComponent implements OnInit {
         title: 'Image',
         type: 'html',
         filter: false,
-        /*  valuePrepareFunction: (poster) => {
+        valuePrepareFunction: (poster) => {
           return `<img src="${poster}" width="100px"/>`;
-        }, */
+        },
       },
       name: {
         title: 'Name',

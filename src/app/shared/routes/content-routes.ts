@@ -14,6 +14,8 @@ export const content: Routes = [
   },
   {
     path: 'products',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: () =>
       import('../../components/products/products.module').then(
         (m) => m.ProductsModule
@@ -63,6 +65,8 @@ export const content: Routes = [
   },
   {
     path: 'users',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: () =>
       import('../../components/users/users.module').then((m) => m.UsersModule),
     data: {
@@ -91,6 +95,8 @@ export const content: Routes = [
   },
   {
     path: 'reports',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: () =>
       import('../../components/reports/reports.module').then(
         (m) => m.ReportsModule
@@ -98,6 +104,8 @@ export const content: Routes = [
   },
   {
     path: 'settings',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: () =>
       import('../../components/setting/setting.module').then(
         (m) => m.SettingModule
@@ -108,6 +116,8 @@ export const content: Routes = [
   },
   {
     path: 'invoice',
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: () =>
       import('../../components/invoice/invoice.module').then(
         (m) => m.InvoiceModule

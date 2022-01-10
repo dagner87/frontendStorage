@@ -9,6 +9,7 @@ import { DigitalSubCategoryComponent } from './digital/digital-sub-category/digi
 import { DigitalListComponent } from './digital/digital-list/digital-list.component';
 import { DigitalAddComponent } from './digital/digital-add/digital-add.component';
 import { ProductDetailComponent } from './physical/product-detail/product-detail.component';
+import { ProductStockComponent } from './physical/product-stock/product-stock.component';
 
 const routes: Routes = [
   {
@@ -18,80 +19,88 @@ const routes: Routes = [
         path: 'physical/category',
         component: CategoryComponent,
         data: {
-          title: "Category",
-          breadcrumb: "Category"
-        }
+          title: 'Category',
+          breadcrumb: 'Category',
+        },
       },
       {
         path: 'physical/sub-category',
         component: SubCategoryComponent,
         data: {
-          title: "Sub Category",
-          breadcrumb: "Sub Category"
-        }
+          title: 'Sub Category',
+          breadcrumb: 'Sub Category',
+        },
+      },
+      {
+        path: 'physical/product-stock',
+        component: ProductStockComponent,
+        data: {
+          title: 'Product Stock',
+          breadcrumb: 'Product Stock',
+        },
       },
       {
         path: 'physical/product-list',
         component: ProductListComponent,
         data: {
-          title: "Product List",
-          breadcrumb: "Product List"
-        }
+          title: 'Product List',
+          breadcrumb: 'Product List',
+        },
       },
       {
         path: 'physical/product-detail',
         component: ProductDetailComponent,
         data: {
-          title: "Product Detail",
-          breadcrumb: "Product Detail"
-        }
+          title: 'Product Detail',
+          breadcrumb: 'Product Detail',
+        },
       },
       {
         path: 'physical/add-product',
         component: AddProductComponent,
         data: {
-          title: "Add Products",
-          breadcrumb: "Add Product"
-        }
+          title: 'Add Products',
+          breadcrumb: 'Add Product',
+        },
       },
       {
         path: 'digital/digital-category',
         component: DigitalCategoryComponent,
         data: {
-          title: "Category",
-          breadcrumb: "Category"
-        }
+          title: 'Category',
+          breadcrumb: 'Category',
+        },
       },
       {
         path: 'digital/digital-sub-category',
         component: DigitalSubCategoryComponent,
         data: {
-          title: "Sub Category",
-          breadcrumb: "Sub Category"
-        }
+          title: 'Sub Category',
+          breadcrumb: 'Sub Category',
+        },
       },
       {
         path: 'digital/digital-product-list',
         component: DigitalListComponent,
         data: {
-          title: "Product List",
-          breadcrumb: "Product List"
-        }
+          title: 'Product List',
+          breadcrumb: 'Product List',
+        },
       },
       {
         path: 'digital/digital-add-product',
         component: DigitalAddComponent,
         data: {
-          title: "Add Products",
-          breadcrumb: "Add Product"
-        }
-      }
-    ]
-  }
+          title: 'Add Products',
+          breadcrumb: 'Add Product',
+        },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProductsRoutingModule { }
+export class ProductsRoutingModule {}
