@@ -59,11 +59,11 @@ export class NavService {
           title: 'Product Stock',
           type: 'link',
         },
-        {
+        /*  {
           path: '/products/physical/sub-category',
           title: 'Sub Category',
           type: 'link',
-        },
+        }, */
         {
           path: '/products/physical/product-list',
           title: 'Product List',
@@ -111,6 +111,34 @@ export class NavService {
       type: 'link',
       active: false,
     },
+
+    /**referencias */
+    /*     {
+      title: 'Sales',
+      icon: 'dollar-sign',
+      type: 'sub',
+      active: false,
+      children: [
+        { path: '/sales/orders', title: 'Orders', type: 'link' },
+        { path: '/sales/transactions', title: 'Transactions', type: 'link' },
+      ],
+    },
+    {
+      title: 'Coupons',
+      icon: 'tag',
+      type: 'sub',
+      active: false,
+      children: [
+        { path: '/coupons/list-coupons', title: 'List Coupons', type: 'link' },
+        {
+          path: '/coupons/create-coupons',
+          title: 'Create Coupons',
+          type: 'link',
+        },
+      ],
+    }, */
+
+    /*-------------------------------------*/
     {
       title: 'Login',
       path: '/auth/login',

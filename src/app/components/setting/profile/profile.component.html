@@ -10,8 +10,8 @@
               alt=""
               class="img-fluid img-90 rounded-circle blur-up lazyloaded"
             />
-            <h5 class="f-w-600 mb-0">John deo</h5>
-            <span>johndeo@gmail.com</span>
+            <h5 class="f-w-600 mb-0">{{ usuario.name }}</h5>
+            <span>{{ usuario.email }}</span>
             <div class="social">
               <div class="form-group btn-showcase">
                 <button class="btn social-btn btn-fb d-inline-block">
@@ -100,7 +100,7 @@
                       <tbody>
                         <tr>
                           <td>First Name:</td>
-                          <td>Johan</td>
+                          <td>{{ usuario.name }}</td>
                         </tr>
                         <tr>
                           <td>Last Name:</td>
@@ -108,7 +108,7 @@
                         </tr>
                         <tr>
                           <td>Email:</td>
-                          <td>johndeo@gmail.com</td>
+                          <td>{{ usuario.email }}</td>
                         </tr>
                         <tr>
                           <td>Gender:</td>
