@@ -5,6 +5,13 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriaService } from 'src/app/shared/service/categoria.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { FileUploadService } from 'src/app/shared/service/file-upload.service';
+import { first } from 'rxjs/operators';
+
+interface HtmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
 
 @Component({
   selector: 'app-category',
@@ -17,6 +24,12 @@ export class CategoryComponent implements OnInit {
   public totalCategorias: number = 0;
   public categoriaExiste: boolean = false;
 
+  photoSelected: string | ArrayBuffer;
+  file: File;
+  files: File[] = [];
+
+  estaSobreElemento = false;
+
   public categoriaForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     descripcion: ['', [Validators.required, Validators.minLength(5)]],
@@ -27,7 +40,8 @@ export class CategoryComponent implements OnInit {
     private modalService: NgbModal,
     private categoriaService: CategoriaService,
     private toastr: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private fileUploadService: FileUploadService
   ) {
     this.categories = categoryDB.category;
   }
@@ -98,9 +112,9 @@ export class CategoryComponent implements OnInit {
   obtenerCategorias() {
     this.categoriaService.obtenerCategorias().subscribe((resp) => {
       this.totalCategorias = resp.total;
-      const [img, ...resto] = resp.categorias;
-      this.categories = resto;
-      console.log(resp);
+      //const [img, ...resto] = resp.categorias;
+      this.categories = resp.categorias;
+      console.log(this.categories);
     });
   }
 
@@ -142,23 +156,46 @@ export class CategoryComponent implements OnInit {
 
   crearCategoria() {
     if (this.categoriaForm.valid) {
-      this.categoriaService.createCategoria(this.categoriaForm.value).subscribe(
-        (resp) => {
-          if (resp.ok) {
-            this.categoriaExiste = false;
-            this.toastr.success('', resp.msg);
-            this.modalService.dismissAll('2');
-            this.obtenerCategorias();
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.categoriaExiste = true;
-        }
-      );
+      this.categoriaService
+        .createCategoria(this.categoriaForm.value)
+        .pipe(first())
+        .subscribe({
+          next: (resp) => {
+            if (resp.ok) {
+              this.categoriaExiste = false;
+              const { _id } = resp.newCategoria;
+              this.subirImagen(_id);
+            }
+          },
+          error: (error) => {
+            this.categoriaExiste = true;
+          },
+        });
     } else {
       this.categoriaForm.markAllAsTouched();
-      //console.log(this.categoriaForm.errors);
     }
+  }
+
+  onPhotoSelected(event: HtmlInputEvent): void {
+    if (event.target.files && event.target.files[0]) {
+      this.file = <File>event.target.files[0];
+      console.log(this.file);
+      // image preview
+      const reader = new FileReader();
+      reader.onload = (e) => (this.photoSelected = reader.result);
+      reader.readAsDataURL(this.file);
+    }
+  }
+
+  subirImagen(id) {
+    this.fileUploadService.uploadPhoto(id, 'categorias', this.file).subscribe(
+      (res) => {
+        res.modelo.img;
+        this.obtenerCategorias();
+        this.toastr.success('', 'Categoria Creada');
+        this.modalService.dismissAll('2');
+      },
+      (err) => console.log(err)
+    );
   }
 }

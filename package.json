@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -52,7 +52,7 @@
     "rxjs": "~6.6.0",
     "sass": "~1.26.11",
     "screenfull": "^5.0.1",
-    "tslib": "^2.0.0",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

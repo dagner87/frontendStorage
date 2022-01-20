@@ -113,7 +113,7 @@ export class NavService {
     },
 
     /**referencias */
-    /*     {
+    {
       title: 'Sales',
       icon: 'dollar-sign',
       type: 'sub',
@@ -124,19 +124,12 @@ export class NavService {
       ],
     },
     {
-      title: 'Coupons',
-      icon: 'tag',
-      type: 'sub',
+      title: 'Media',
+      path: '/media',
+      icon: 'camera',
+      type: 'link',
       active: false,
-      children: [
-        { path: '/coupons/list-coupons', title: 'List Coupons', type: 'link' },
-        {
-          path: '/coupons/create-coupons',
-          title: 'Create Coupons',
-          type: 'link',
-        },
-      ],
-    }, */
+    },
 
     /*-------------------------------------*/
     {
