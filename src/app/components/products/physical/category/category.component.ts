@@ -27,6 +27,7 @@ export class CategoryComponent implements OnInit {
   photoSelected: string | ArrayBuffer;
   file: File;
   files: File[] = [];
+  saving = false;
 
   estaSobreElemento = false;
 
@@ -43,6 +44,7 @@ export class CategoryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private fileUploadService: FileUploadService
   ) {
+    this.photoSelected = 'assets/images/no-image.png';
     this.categories = categoryDB.category;
   }
 
@@ -54,7 +56,9 @@ export class CategoryComponent implements OnInit {
   }
 
   open(content) {
+    this.saving = false;
     this.categoriaForm.reset();
+    this.photoSelected = 'assets/images/no-image.png';
     this.categoriaExiste = false;
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
@@ -83,13 +87,13 @@ export class CategoryComponent implements OnInit {
       position: 'right',
       add: false,
     },
-
     edit: {
       confirmSave: true,
     },
     delete: {
       confirmDelete: true,
     },
+
     columns: {
       img: {
         title: 'Image',
@@ -110,11 +114,15 @@ export class CategoryComponent implements OnInit {
   };
 
   obtenerCategorias() {
-    this.categoriaService.obtenerCategorias().subscribe((resp) => {
+    /*   this.categoriaService.obtenerCategorias().subscribe((resp) => {
       this.totalCategorias = resp.total;
-      //const [img, ...resto] = resp.categorias;
       this.categories = resp.categorias;
-      console.log(this.categories);
+      console.log(resp);
+    }); */
+    this.categoriaService.obtenerCategoriasPaginadas().subscribe((resp) => {
+      const { itemsList, total } = resp.result;
+      this.totalCategorias = total;
+      this.categories = itemsList;
     });
   }
 
@@ -155,6 +163,7 @@ export class CategoryComponent implements OnInit {
   }
 
   crearCategoria() {
+    this.saving = false;
     if (this.categoriaForm.valid) {
       this.categoriaService
         .createCategoria(this.categoriaForm.value)
@@ -162,6 +171,8 @@ export class CategoryComponent implements OnInit {
         .subscribe({
           next: (resp) => {
             if (resp.ok) {
+              //Mostrar el cargando
+              this.saving = true;
               this.categoriaExiste = false;
               const { _id } = resp.newCategoria;
               this.subirImagen(_id);
@@ -192,8 +203,10 @@ export class CategoryComponent implements OnInit {
       (res) => {
         res.modelo.img;
         this.obtenerCategorias();
-        this.toastr.success('', 'Categoria Creada');
+        this.toastr.success('', 'Category Created');
         this.modalService.dismissAll('2');
+        this.photoSelected = 'assets/images/no-image.png';
+        this.saving = false;
       },
       (err) => console.log(err)
     );

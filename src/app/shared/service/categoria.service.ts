@@ -5,7 +5,9 @@ import { environment } from 'src/environments/environment';
 
 import {
   Categoria,
+  CategoriaItems,
   ListadoCategorias,
+  Result,
 } from '../interfaces/categoria.interface';
 
 @Injectable({
@@ -16,8 +18,12 @@ export class CategoriaService {
 
   obtenerCategorias(): Observable<ListadoCategorias> {
     return this.http.get<ListadoCategorias>(
-      `${environment.base_url}categorias?limit=20`
+      `${environment.base_url}categorias-sinpaginar`
     );
+  }
+
+  obtenerCategoriasPaginadas(): Observable<CategoriaItems> {
+    return this.http.get<CategoriaItems>(`${environment.base_url}categorias`);
   }
 
   createCategoria(categoria: Categoria): Observable<any> {

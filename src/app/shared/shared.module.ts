@@ -16,6 +16,8 @@ import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.
 
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 
+import { SpinnersComponent } from './components/spinners/spinners.component';
+
 @NgModule({
   declarations: [
     ToggleFullscreenDirective,
@@ -27,11 +29,13 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     ContentLayoutComponent,
     BreadcrumbComponent,
     RightSidebarComponent,
+    SpinnersComponent,
   ],
   imports: [CommonModule, RouterModule],
   providers: [NavService, WINDOW_PROVIDERS],
   exports: [
     FeatherIconsComponent,
+    SpinnersComponent,
     ToggleFullscreenDirective,
     NgDropFilesDirective,
   ],

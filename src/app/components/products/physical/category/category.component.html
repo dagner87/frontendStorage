@@ -4,7 +4,7 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h5>Products Category</h5>
+          <h5>Products Category Total: {{ totalCategorias }}</h5>
         </div>
         <div class="card-body">
           <div class="btn-popup pull-right">
@@ -18,6 +18,7 @@
             >
               Add Category
             </button>
+
             <ng-template #content let-modal>
               <div class="modal-header">
                 <h5 class="modal-title f-w-600" id="exampleModalLabel">
@@ -85,7 +86,7 @@
                         #photoInput
                       />
                       <img
-                        [src]="photoSelected || 'assets/images/no-image.png'"
+                        [src]="photoSelected"
                         class="img-fluid"
                         alt="No image"
                         (click)="photoInput.click()"
@@ -96,11 +97,20 @@
               </div>
               <div class="modal-footer">
                 <button
+                  [disabled]="saving"
                   type="button"
                   (click)="crearCategoria()"
                   class="btn btn-primary"
                 >
-                  Save
+                  <span
+                    *ngIf="saving"
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+
+                  <div *ngIf="!saving">Save</div>
+                  <div *ngIf="saving">Saving</div>
                 </button>
                 <button
                   class="btn btn-secondary"
