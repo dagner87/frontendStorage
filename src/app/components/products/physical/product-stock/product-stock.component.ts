@@ -71,7 +71,7 @@ export class ProductStockComponent implements OnInit {
         title: 'Stock',
         type: 'html',
         valuePrepareFunction: (cantidad) => {
-          return `<span class='badge badge-success'>${cantidad}</span>`;
+          return `<span>${cantidad}</span>`;
         },
       },
       stock_min: {

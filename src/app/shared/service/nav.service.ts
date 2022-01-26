@@ -64,21 +64,21 @@ export class NavService {
           title: 'Sub Category',
           type: 'link',
         }, */
-        {
+        /*   {
           path: '/products/physical/product-list',
           title: 'Product List',
           type: 'link',
-        },
-        {
+        }, */
+        /* {
           path: '/products/physical/product-detail',
           title: 'Product Detail',
           type: 'link',
-        },
-        {
+        }, */
+        /*  {
           path: '/products/physical/add-product',
           title: 'Add Product',
           type: 'link',
-        },
+        }, */
       ],
     },
     {
@@ -122,13 +122,6 @@ export class NavService {
         { path: '/sales/orders', title: 'Orders', type: 'link' },
         { path: '/sales/transactions', title: 'Transactions', type: 'link' },
       ],
-    },
-    {
-      title: 'Media',
-      path: '/media',
-      icon: 'camera',
-      type: 'link',
-      active: false,
     },
 
     /*-------------------------------------*/
