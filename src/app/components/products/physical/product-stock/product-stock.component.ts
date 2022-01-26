@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { categoryDB } from 'src/app/shared/tables/category';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ProductosService } from 'src/app/shared/service/productos.service';
 
 @Component({
   selector: 'app-product-stock',
@@ -11,7 +12,10 @@ export class ProductStockComponent implements OnInit {
   public closeResult: string;
   public sub_categories = [];
 
-  constructor(private modalService: NgbModal) {
+  constructor(
+    private modalService: NgbModal,
+    private productosService: ProductosService
+  ) {
     this.sub_categories = categoryDB.category;
   }
 
@@ -46,10 +50,10 @@ export class ProductStockComponent implements OnInit {
         title: 'Image',
         type: 'html',
       },
-      product_name: {
+      name: {
         title: 'Name',
       },
-      price: {
+      precio: {
         title: 'Price',
       },
       status: {
@@ -62,5 +66,14 @@ export class ProductStockComponent implements OnInit {
     },
   };
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.obtenerListadoProductos();
+  }
+
+  obtenerListadoProductos() {
+    this.productosService.obtenerProductosPaginados().subscribe((resp) => {
+      console.log(resp);
+      this.sub_categories = resp.itemsList;
+    });
+  }
 }

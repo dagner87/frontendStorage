@@ -28,6 +28,7 @@ export class CategoryComponent implements OnInit {
   file: File;
   files: File[] = [];
   saving = false;
+  isTrusted = false;
 
   estaSobreElemento = false;
 
@@ -44,7 +45,7 @@ export class CategoryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private fileUploadService: FileUploadService
   ) {
-    this.photoSelected = 'assets/images/no-image.png';
+    this.photoSelected = '';
     this.categories = categoryDB.category;
   }
 
@@ -54,14 +55,24 @@ export class CategoryComponent implements OnInit {
   get descripcion() {
     return this.categoriaForm.get('descripcion');
   }
+  get imagen() {
+    if (this.photoSelected == '' || !this.isTrusted) {
+      return this.categoriaForm.invalid;
+    }
+    return this.categoriaForm.valid;
+  }
 
   open(content) {
     this.saving = false;
     this.categoriaForm.reset();
-    this.photoSelected = 'assets/images/no-image.png';
+    this.photoSelected = '';
     this.categoriaExiste = false;
     this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .open(content, {
+        ariaLabelledBy: 'modal-dialog-centered',
+        backdrop: 'static',
+        keyboard: false,
+      })
       .result.then(
         (result) => {
           this.closeResult = `Closed with: ${result}`;
@@ -99,6 +110,7 @@ export class CategoryComponent implements OnInit {
         title: 'Image',
         type: 'html',
         filter: false,
+        editable: false,
         valuePrepareFunction: (poster) => {
           return `<img src="${poster}" width="100px"/>`;
         },
@@ -114,11 +126,6 @@ export class CategoryComponent implements OnInit {
   };
 
   obtenerCategorias() {
-    /*   this.categoriaService.obtenerCategorias().subscribe((resp) => {
-      this.totalCategorias = resp.total;
-      this.categories = resp.categorias;
-      console.log(resp);
-    }); */
     this.categoriaService.obtenerCategoriasPaginadas().subscribe((resp) => {
       const { itemsList, total } = resp.result;
       this.totalCategorias = total;
@@ -149,7 +156,7 @@ export class CategoryComponent implements OnInit {
   onEditConfirm(event) {
     if (window.confirm('Are you sure you want to save?')) {
       //call to remote api, remember that you have to await this
-      console.log(event);
+      //console.log(event);
       this.categoriaService
         .editarCategoria(event.data._id, event.newData)
         .subscribe((resp) => {
@@ -188,9 +195,12 @@ export class CategoryComponent implements OnInit {
   }
 
   onPhotoSelected(event: HtmlInputEvent): void {
+    console.log(event.isTrusted);
+    this.isTrusted = event.isTrusted;
+
     if (event.target.files && event.target.files[0]) {
       this.file = <File>event.target.files[0];
-      console.log(this.file);
+      //console.log(this.file);
       // image preview
       const reader = new FileReader();
       reader.onload = (e) => (this.photoSelected = reader.result);
@@ -205,7 +215,7 @@ export class CategoryComponent implements OnInit {
         this.obtenerCategorias();
         this.toastr.success('', 'Category Created');
         this.modalService.dismissAll('2');
-        this.photoSelected = 'assets/images/no-image.png';
+        this.photoSelected = '';
         this.saving = false;
       },
       (err) => console.log(err)

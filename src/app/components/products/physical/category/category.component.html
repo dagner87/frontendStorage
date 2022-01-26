@@ -86,10 +86,13 @@
                         #photoInput
                       />
                       <img
-                        [src]="photoSelected"
+                        [src]="photoSelected || 'assets/images/no-image.png'"
                         class="img-fluid"
                         alt="No image"
                         (click)="photoInput.click()"
+                        [ngClass]="{
+                          'required-image': imagen
+                        }"
                       />
                     </div>
                   </div>
@@ -97,7 +100,7 @@
               </div>
               <div class="modal-footer">
                 <button
-                  [disabled]="saving"
+                  [disabled]="saving || this.categoriaForm.invalid"
                   type="button"
                   (click)="crearCategoria()"
                   class="btn btn-primary"
@@ -121,7 +124,7 @@
                   Close
                 </button>
               </div>
-              <!--  <pre>{{ this.categoriaForm.value | json }}</pre> -->
+              <!--   <pre>{{ this.categoriaForm.status }}</pre> -->
             </ng-template>
           </div>
 
