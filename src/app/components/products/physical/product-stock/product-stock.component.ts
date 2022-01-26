@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { categoryDB } from 'src/app/shared/tables/category';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ProductosService } from 'src/app/shared/service/productos.service';
+import { ItemsList } from 'src/app/shared/interfaces/producto.interface';
 
 @Component({
   selector: 'app-product-stock',
@@ -10,18 +11,23 @@ import { ProductosService } from 'src/app/shared/service/productos.service';
 })
 export class ProductStockComponent implements OnInit {
   public closeResult: string;
-  public sub_categories = [];
+  public sub_categories: ItemsList[] = [];
 
   constructor(
     private modalService: NgbModal,
     private productosService: ProductosService
   ) {
-    this.sub_categories = categoryDB.category;
+    //this.sub_categories = categoryDB.category;
   }
 
   open(content) {
     this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .open(content, {
+        ariaLabelledBy: 'modal-basic-title',
+        backdrop: 'static',
+        keyboard: false,
+        size: 'xl',
+      })
       .result.then(
         (result) => {
           this.closeResult = `Closed with: ${result}`;
@@ -49,6 +55,11 @@ export class ProductStockComponent implements OnInit {
       img: {
         title: 'Image',
         type: 'html',
+        filter: false,
+        editable: false,
+        valuePrepareFunction: (img) => {
+          return `<img src="${img}" width="80px"/>`;
+        },
       },
       name: {
         title: 'Name',
@@ -56,12 +67,37 @@ export class ProductStockComponent implements OnInit {
       precio: {
         title: 'Price',
       },
-      status: {
-        title: 'Status',
+      cantidad: {
+        title: 'Stock',
         type: 'html',
+        valuePrepareFunction: (cantidad) => {
+          return `<span class='badge badge-success'>${cantidad}</span>`;
+        },
       },
-      category: {
-        title: 'Sub Category',
+      stock_min: {
+        title: 'Stock min',
+        type: 'html',
+        valuePrepareFunction: (stock_min) => {
+          return `<span class='badge badge-info'>${stock_min}</span>`;
+        },
+      },
+      categoria: {
+        title: 'Category',
+        valuePrepareFunction: (arg) => {
+          return arg.name;
+        },
+      },
+      almacen: {
+        title: 'WareHosue',
+        valuePrepareFunction: (almacen) => {
+          return almacen.name;
+        },
+      },
+      proveedor: {
+        title: 'Proveedor',
+        valuePrepareFunction: (proveedor) => {
+          return proveedor.name;
+        },
       },
     },
   };
@@ -73,7 +109,7 @@ export class ProductStockComponent implements OnInit {
   obtenerListadoProductos() {
     this.productosService.obtenerProductosPaginados().subscribe((resp) => {
       console.log(resp);
-      this.sub_categories = resp.itemsList;
+      this.sub_categories = resp.result.itemsList;
     });
   }
 }

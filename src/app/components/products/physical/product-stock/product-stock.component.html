@@ -4,7 +4,7 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h5>Products Sub Category</h5>
+          <h5>Products Stock</h5>
         </div>
         <div class="card-body">
           <div class="btn-popup pull-right">
@@ -16,12 +16,12 @@
               data-target="#exampleModal"
               (click)="open(content)"
             >
-              Add Sub Category
+              Add Product
             </button>
             <ng-template #content let-modal>
               <div class="modal-header">
                 <h5 class="modal-title f-w-600" id="exampleModalLabel">
-                  Add Physical Product
+                  Add Product
                 </h5>
                 <button
                   type="button"
@@ -35,28 +35,87 @@
               <div class="modal-body">
                 <form class="needs-validation">
                   <div class="form">
-                    <div class="form-group">
-                      <label for="validationCustom01" class="mb-1"
-                        >Sub Category Name :</label
-                      >
-                      <input
-                        class="form-control"
-                        id="validationCustom01"
-                        type="text"
-                      />
+                    <div class="row">
+                      <div class="col">
+                        <label for="validationCustom02" class="mb-1"
+                          >Arrival day :</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          placeholder="Arrival day"
+                        />
+                      </div>
+                      <div class="col">
+                        <label for="validationCustom02" class="mb-1"
+                          >Proveedor :</label
+                        >
+                        <select class="form-control">
+                          <option>Default select</option>
+                        </select>
+                      </div>
                     </div>
-                    <div class="form-group mb-0">
-                      <label for="validationCustom02" class="mb-1"
-                        >Sub Category Image :</label
-                      >
-                      <input
-                        class="form-control"
-                        id="validationCustom02"
-                        type="file"
-                      />
+                    <br />
+
+                    <div class="row">
+                      <div class="col">
+                        <label for="validationCustom02" class="mb-1"
+                          >Producto :</label
+                        >
+                        <select class="form-control">
+                          <option>Default select</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label for="validationCustom02" class="mb-1"
+                          >Almacen :</label
+                        >
+                        <select class="form-control">
+                          <option>Default select</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label for="validationCustom02" class="mb-1"
+                          >Paking List :</label
+                        >
+                        <input
+                          class="form-control"
+                          id="validationCustom01"
+                          type="file"
+                        />
+                      </div>
                     </div>
                   </div>
                 </form>
+
+                <br />
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">CODE</th>
+                      <th scope="col">NAME</th>
+                      <th scope="col">CANT</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">2/2</th>
+                      <td>SEAT REAR</td>
+                      <td>
+                        <input
+                          class="form-control"
+                          id="validationCustom01"
+                          type="number"
+                        />
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-primary">X</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Save</button>
