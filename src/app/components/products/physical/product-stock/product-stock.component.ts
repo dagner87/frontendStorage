@@ -3,21 +3,52 @@ import { categoryDB } from 'src/app/shared/tables/category';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ProductosService } from 'src/app/shared/service/productos.service';
 import { ItemsList } from 'src/app/shared/interfaces/producto.interface';
+import { StorageService } from 'src/app/shared/service/storage.service';
+import { Stogare } from 'src/app/shared/interfaces/storage.interface';
+
+import { FormBuilder, Validators } from '@angular/forms';
+import { ProveedoresService } from 'src/app/shared/service/proveedores.service';
+import { Proveedor } from 'src/app/shared/interfaces/proveedores.interface';
+
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-stock',
   templateUrl: './product-stock.component.html',
   styleUrls: ['./product-stock.component.scss'],
+  //providers: [DatePipe],
 })
 export class ProductStockComponent implements OnInit {
   public closeResult: string;
   public sub_categories: ItemsList[] = [];
+  storages: Stogare[] = [];
+  proveedores: Proveedor[] = [];
+  //myDate = new Date().toLocaleDateString('en-CA');
+  filter_storage: Stogare[] = [];
+
+  public productForm = this.formBuilder.group({
+    proveedor: ['0', [Validators.required]],
+    storage: ['0', [Validators.required]],
+    /*  product: this.formBuilder.group({
+      _id: [''],
+      cant: [''],
+    }), */
+    arrival_day: ['', [Validators.required]],
+    paking_list: ['', [Validators.required]],
+  });
 
   constructor(
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private productosService: ProductosService
+    private productosService: ProductosService,
+    private storageService: StorageService,
+    private proveedoresService: ProveedoresService //private datePipe: DatePipe
   ) {
-    //this.sub_categories = categoryDB.category;
+    this.filter_storage.unshift({
+      _id: '0',
+      name: 'Select Storage',
+      identificador: '0',
+    });
   }
 
   open(content) {
@@ -103,12 +134,36 @@ export class ProductStockComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.getListStorage();
+    this.getListProveedores();
     this.obtenerListadoProductos();
+  }
+
+  getListStorage() {
+    this.storageService.obtenerStorage().subscribe((resp) => {
+      this.storages = resp.result.itemsList;
+      this.storages.unshift({
+        _id: '0',
+        name: 'Select Storage',
+        identificador: '0',
+      });
+      //console.log(this.storages);
+    });
+  }
+  getListProveedores() {
+    this.proveedoresService.obtenerProveedores().subscribe((resp) => {
+      this.proveedores = resp.result.itemsList;
+      this.proveedores.unshift({
+        _id: '0',
+        name: 'Select Proveedores',
+      });
+      //console.log(this.proveedores);
+    });
   }
 
   obtenerListadoProductos() {
     this.productosService.obtenerProductosPaginados().subscribe((resp) => {
-      console.log(resp);
+      //console.log(resp);
       this.sub_categories = resp.result.itemsList;
     });
   }
